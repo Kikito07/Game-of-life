@@ -1,8 +1,5 @@
+import matplotlib.pyplot as plt
 import numpy as np
-
-arrayTest = np.zeros((10, 10))
-
-
 
 def addcell(array, x, y):
     array[x, y] = 1
@@ -10,6 +7,7 @@ def addcell(array, x, y):
 
 
 def gameoflife(array):
+    arrayNew = np.zeros((10, 10))
     for row in range(array[0, :].size):
         for column in range(array[0, :].size):
 
@@ -20,12 +18,8 @@ def gameoflife(array):
                         if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
                                 column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
                             total = total + array[row + rangRow, column + rangeColumn]
-
-                if total <= 2:
-                    array[row, column] = 0
-
-                elif total >= 4:
-                    array[row, column] = 0
+                if total == 4 or total == 3:
+                    arrayNew[row, column] = 1
 
             else:
                 total = 0
@@ -34,23 +28,27 @@ def gameoflife(array):
                         if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
                                 column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
                             total = total + array[row + rangRow, column + rangeColumn]
-
                 if total == 3:
-                    array[row, column] = 1
+                    arrayNew[row, column] = 1
 
-    return array
+    return arrayNew
 
+arrayTest = np.zeros((10, 10))
+fram=0
 
-addcell(arrayTest, 3, 4)
-addcell(arrayTest, 5, 6)
-addcell(arrayTest, 2, 4)
-addcell(arrayTest, 1, 4)
-addcell(arrayTest, 9, 2)
-addcell(arrayTest, 7, 4)
-addcell(arrayTest, 9, 4)
+addcell(arrayTest, 3, 5)
+addcell(arrayTest, 3, 6)
+addcell(arrayTest, 3, 7)
+addcell(arrayTest, 4, 4)
+addcell(arrayTest, 4, 5)
+addcell(arrayTest, 4, 6)
 
-print(arrayTest)
+fig, ax = plt.subplots()
 
-gameoflife(arrayTest)
-
-print(arrayTest)
+while fram<50:
+    ax.imshow(arrayTest)
+    arrayTest=gameoflife(arrayTest)
+    ax.set_title("frame {}".format(fram))
+    fram=fram+1
+    # Note that using time.sleep does *not* work here!
+    plt.pause(0.1)
