@@ -10,15 +10,15 @@ def addcell(array, x, y):
 
 
 def gameoflife(array):
-    for row in range(array.size):
-        for column in range(array.size):
+    for row in range(array[0, :].size):
+        for column in range(array[0, :].size):
 
             if (array[row, column] == 1):
                 total = 0
                 for rangRow in range(-1, 2):
                     for rangeColumn in range(-1, 2):
-                        if (row + rangRow < (array.size -1) and row + rangRow >= 0 and
-                                column + rangeColumn < (array.size -1) and column + rangeColumn >= 0):
+                        if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
+                                column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
                             total = total + array[row + rangRow, column + rangeColumn]
 
                 if total <= 2:
@@ -31,8 +31,8 @@ def gameoflife(array):
                 total = 0
                 for rangRow in range(-1, 2):
                     for rangeColumn in range(-1, 2):
-                        if (row + rangRow < (array.size -1) and row + rangRow >= 0 and
-                                column + rangeColumn < (array.size -1) and column + rangeColumn >= 0):
+                        if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
+                                column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
                             total = total + array[row + rangRow, column + rangeColumn]
 
                 if total == 3:
