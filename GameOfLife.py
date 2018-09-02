@@ -1,7 +1,7 @@
 import numpy as np
 
 arrayTest = np.zeros((10, 10))
-print(arrayTest)
+
 
 
 def addcell(array, x, y):
@@ -10,33 +10,33 @@ def addcell(array, x, y):
 
 
 def gameoflife(array):
-    for i in range(array.size):
-        for j in range(array.size):
+    for row in range(array.size):
+        for column in range(array.size):
 
-            if (array[i, j] == 1):
+            if (array[row, column] == 1):
                 total = 0
-                for k in range(-1, 2):
-                    for l in range(-1, 2):
-                        if (i + k < (array.size -1) and i + k >= 0 and
-                                j + l < (array.size -1) and j + l >= 0):
-                            total = total + array[i + k, j + l]
+                for rangRow in range(-1, 2):
+                    for rangeColumn in range(-1, 2):
+                        if (row + rangRow < (array.size -1) and row + rangRow >= 0 and
+                                column + rangeColumn < (array.size -1) and column + rangeColumn >= 0):
+                            total = total + array[row + rangRow, column + rangeColumn]
 
                 if total <= 2:
-                    array[i, j] = 0
+                    array[row, column] = 0
 
                 elif total >= 4:
-                    array[i, j] = 0
+                    array[row, column] = 0
 
             else:
                 total = 0
-                for k in range(-1, 2):
-                    for l in range(-1, 2):
-                        if (i + k < array.size and i + k >= 0 and
-                                j + l < array.size and j + l >= 0):
-                            total = total + array[i + k, j + l]
+                for rangRow in range(-1, 2):
+                    for rangeColumn in range(-1, 2):
+                        if (row + rangRow < (array.size -1) and row + rangRow >= 0 and
+                                column + rangeColumn < (array.size -1) and column + rangeColumn >= 0):
+                            total = total + array[row + rangRow, column + rangeColumn]
 
                 if total == 3:
-                    array[i, j] = 1
+                    array[row, column] = 1
 
     return array
 
