@@ -1,23 +1,40 @@
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
-def addcell(array, x, y):
-    array[x, y] = 1
+def addcell(arrayTest, x, y):
+    arrayTest[x, y] = 1
     return
 
 
-def gameoflife(array):
-    arrayNew = np.zeros((10, 10))
-    for row in range(array[0, :].size):
-        for column in range(array[0, :].size):
+arrayTest=np.matrix([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
+ [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
-            if (array[row, column] == 1):
+
+
+
+def animate(data):
+    global arrayTest
+    arrayNew = np.zeros((arrayTest[0, :].size, arrayTest[0, :].size))
+
+    for row in range(arrayTest[0, :].size):
+        for column in range(arrayTest[0, :].size):
+
+            if (arrayTest[row, column] == 1):
                 total = 0
                 for rangRow in range(-1, 2):
                     for rangeColumn in range(-1, 2):
-                        if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
-                                column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
-                            total = total + array[row + rangRow, column + rangeColumn]
+                        if (row + rangRow < (arrayTest[0, :].size) and row + rangRow >= 0 and
+                                column + rangeColumn < (arrayTest[0, :].size) and column + rangeColumn >= 0):
+                            total = total + arrayTest[row + rangRow, column + rangeColumn]
                 if total == 4 or total == 3:
                     arrayNew[row, column] = 1
 
@@ -25,30 +42,20 @@ def gameoflife(array):
                 total = 0
                 for rangRow in range(-1, 2):
                     for rangeColumn in range(-1, 2):
-                        if (row + rangRow < (array[0, :].size) and row + rangRow >= 0 and
-                                column + rangeColumn < (array[0, :].size) and column + rangeColumn >= 0):
-                            total = total + array[row + rangRow, column + rangeColumn]
+                        if (row + rangRow < (arrayTest[0, :].size) and row + rangRow >= 0 and
+                                column + rangeColumn < (arrayTest[0, :].size) and column + rangeColumn >= 0):
+                            total = total + arrayTest[row + rangRow, column + rangeColumn]
                 if total == 3:
                     arrayNew[row, column] = 1
 
-    return arrayNew
+    mat.set_data(arrayNew)
+    arrayTest = arrayNew
+    return [mat]
 
-arrayTest = np.zeros((10, 10))
-fram=0
-
-addcell(arrayTest, 3, 5)
-addcell(arrayTest, 3, 6)
-addcell(arrayTest, 3, 7)
-addcell(arrayTest, 4, 4)
-addcell(arrayTest, 4, 5)
-addcell(arrayTest, 4, 6)
 
 fig, ax = plt.subplots()
+mat = ax.matshow(arrayTest)
+ani = animation.FuncAnimation(fig, animate, interval=1000, save_count=50)
 
-while fram<50:
-    ax.imshow(arrayTest)
-    arrayTest=gameoflife(arrayTest)
-    ax.set_title("frame {}".format(fram))
-    fram=fram+1
-    # Note that using time.sleep does *not* work here!
-    plt.pause(0.1)
+
+plt.show()

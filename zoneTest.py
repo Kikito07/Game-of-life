@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -8,18 +7,23 @@ def addcell(arrayTest, x, y):
     return
 
 
-arrayTest = np.zeros((10, 10))
-addcell(arrayTest, 3, 5)
-addcell(arrayTest, 3, 6)
-addcell(arrayTest, 3, 7)
-addcell(arrayTest, 4, 5)
-addcell(arrayTest, 4, 6)
-addcell(arrayTest, 4, 7)
+arrayTest=np.matrix([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
+ [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+
+
 
 
 def animate(data):
     global arrayTest
-    arrayNew = np.zeros(arrayTest[0, :].size, arrayTest[0, :].size)
+    arrayNew = np.zeros((arrayTest[0, :].size, arrayTest[0, :].size))
 
     for row in range(arrayTest[0, :].size):
         for column in range(arrayTest[0, :].size):
@@ -51,4 +55,7 @@ def animate(data):
 
 fig, ax = plt.subplots()
 mat = ax.matshow(arrayTest)
-ani = animation.FuncAnimation(fig, animate, interval=50, save_count=50)
+ani = animation.FuncAnimation(fig, animate, interval=1000, save_count=50)
+
+
+plt.show()
